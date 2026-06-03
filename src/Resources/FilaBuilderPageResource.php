@@ -7,11 +7,15 @@ use Filabuilder\Models\FilaBuilderPage;
 use Filabuilder\Resources\FilaBuilderPageResource\Pages\CreateFilaBuilderPage;
 use Filabuilder\Resources\FilaBuilderPageResource\Pages\EditFilaBuilderPage;
 use Filabuilder\Resources\FilaBuilderPageResource\Pages\ListFilaBuilderPages;
+use Filament\Actions\Action;
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
+use Filament\Schemas\Components\Actions;
 use Filament\Schemas\Schema;
+use Filament\Support\Enums\Width;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -25,6 +29,10 @@ class FilaBuilderPageResource extends Resource
     protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-document-text';
 
     protected static ?string $navigationLabel = 'Pages';
+
+    protected static ?string $modelLabel = 'Page';
+
+    protected static ?string $pluralModelLabel = 'Pages';
 
     protected static ?string $slug = 'filabuilder-pages';
 
@@ -61,11 +69,31 @@ class FilaBuilderPageResource extends Resource
                     ->required(fn ($get) => $get('status') === PageStatus::Scheduled->value)
                     ->native(false),
 
-                \Filabuilder\Forms\Components\GrapesJsField::make('content')
-                    ->label('Page Content')
-                    ->loadDefaultBlocks(config('filabuilder.blocks.default_blocks', true))
-                    ->minHeight('70vh')
-                    ->columnSpanFull(),
+                Hidden::make('content'),
+
+                Actions::make([
+                    Action::make('openEditor')
+                        ->label('Open Page Builder')
+                        ->icon('heroicon-o-pencil-square')
+                        ->color('primary')
+                        ->size('lg')
+                        ->extraAttributes(['class' => 'w-full'])
+                        ->button()
+                        ->modalWidth(Width::Full)
+                        ->modalHeading('Page Builder')
+                        ->schema([
+                            \Filabuilder\Forms\Components\GrapesJsField::make('content')
+                                ->label('')
+                                ->loadDefaultBlocks(config('filabuilder.blocks.default_blocks', true))
+                                ->minHeight('75vh'),
+                        ])
+                        ->fillForm(fn ($livewire): array => [
+                            'content' => $livewire?->record?->content ?? null,
+                        ])
+                        ->action(function (array $data, $set): void {
+                            $set('content', $data['content']);
+                        }),
+                ])->columnSpanFull(),
 
                 SEO::make()
                     ->columnSpanFull(),
