@@ -1,0 +1,5 @@
+<?php
+
+use Filabuilder\Tests\TestCase;
+
+uses(TestCase::class)->in(__DIR__);
