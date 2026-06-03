@@ -1,13 +1,12 @@
 {
-    "name": "filabuilder/filabuilder",
-    "description": "A visual page builder for Filament admin panels, powered by GrapesJS.",
+    "name": "rizky-dhani/filabuilder",
+    "description": "A visual page builder for Filament admin panels, powered by GrapesJS",
     "keywords": ["filament", "laravel", "grapesjs", "page-builder", "cms"],
     "license": "MIT",
     "authors": [
         {
             "name": "Rizky Dhani",
-            "email": "rizkydhni03@gmail.com",
-            "role": "Developer"
+            "email": "rizkydhni03@gmail.com"
         }
     ],
     "require": {
