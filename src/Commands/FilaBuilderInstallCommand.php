@@ -21,7 +21,7 @@ class FilaBuilderInstallCommand extends Command
         $this->call('migrate');
 
         $this->info('FilaBuilder installed successfully!');
-        $this->warn('Add FilaBuilderPlugin::make() to your AdminPanelProvider to get started.');
+        $this->warn('Add Filabuilder\FilaBuilder::make() to your AdminPanelProvider to get started.');
 
         return self::SUCCESS;
     }

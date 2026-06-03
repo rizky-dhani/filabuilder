@@ -6,7 +6,7 @@ use Filabuilder\Resources\FilaBuilderPageResource;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 
-class FilaBuilderPlugin implements Plugin
+class FilaBuilder implements Plugin
 {
     protected bool $seo = true;
 

@@ -1,6 +1,6 @@
 <?php
 
-use Filabuilder\FilaBuilderPlugin;
+use Filabuilder\FilaBuilder;
 use Filabuilder\Models\FilaBuilderPage;
 use Filament\Panel;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 uses(RefreshDatabase::class);
 
 it('plugin registers the page resource', function () {
-    $plugin = FilaBuilderPlugin::make();
+    $plugin = FilaBuilder::make();
 
     expect($plugin->getId())->toBe('filabuilder');
     expect($plugin->hasSeo())->toBeTrue();
@@ -16,7 +16,7 @@ it('plugin registers the page resource', function () {
 });
 
 it('plugin can disable seo and scheduling', function () {
-    $plugin = FilaBuilderPlugin::make()
+    $plugin = FilaBuilder::make()
         ->seo(false)
         ->scheduling(false);
 
@@ -25,7 +25,7 @@ it('plugin can disable seo and scheduling', function () {
 });
 
 it('plugin respects custom route prefix', function () {
-    $plugin = FilaBuilderPlugin::make()
+    $plugin = FilaBuilder::make()
         ->routePrefix('pages');
 
     expect($plugin->getRoutePrefix())->toBe('pages');

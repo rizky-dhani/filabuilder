@@ -28,13 +28,13 @@ php artisan filabuilder:install
 Add the plugin to your `AdminPanelProvider.php`:
 
 ```php
-use Filabuilder\FilaBuilderPlugin;
+use Filabuilder\FilaBuilder;
 
 public function panel(Panel $panel): Panel
 {
     return $panel
         // ...
-        ->plugin(FilaBuilderPlugin::make());
+        ->plugin(FilaBuilder::make());
 }
 ```
 
@@ -60,7 +60,7 @@ return [
 ### Plugin Options
 
 ```php
-FilaBuilderPlugin::make()
+FilaBuilder::make()
     ->seo(false)              // Disable SEO tab
     ->scheduling(false)       // Disable publish scheduling
     ->routePrefix('pages');   // Pages at /pages/{slug}
