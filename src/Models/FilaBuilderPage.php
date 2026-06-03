@@ -11,7 +11,7 @@ class FilaBuilderPage extends Model
 {
     use HasSEO;
 
-    protected $table = 'filabuilder_pages';
+    protected $table = 'pages';
 
     protected $fillable = [
         'title', 'slug', 'status', 'published_at',

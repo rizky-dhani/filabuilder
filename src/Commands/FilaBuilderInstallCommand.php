@@ -18,6 +18,10 @@ class FilaBuilderInstallCommand extends Command
             '--tag' => 'filabuilder-config',
         ]);
 
+        $this->call('vendor:publish', [
+            '--tag' => 'filabuilder-migrations',
+        ]);
+
         $this->call('migrate');
 
         $this->info('FilaBuilder installed successfully!');
