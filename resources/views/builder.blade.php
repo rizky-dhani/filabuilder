@@ -138,7 +138,7 @@ var initialContent = @json($page->content);
             }, 3500);
         }
 
-        // --- Slug auto-fill from title ---
+        // --- Slug auto-fill and SEO title sync from title ---
         function autoSlug(title) {
             var slug = title
                 .toLowerCase()
@@ -147,6 +147,12 @@ var initialContent = @json($page->content);
                 .replace(/-+/g, '-')
                 .replace(/^-|-$/g, '');
             document.getElementById('page-slug').value = slug;
+
+            // Sync SEO title only if empty, so user can override
+            var seoTitle = document.getElementById('page-seo-title');
+            if (!seoTitle.value.trim()) {
+                seoTitle.value = title;
+            }
         }
 
         // --- Toggle publish date field ---

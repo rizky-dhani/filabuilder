@@ -47,6 +47,7 @@ class FilaBuilderPageResource extends Resource
                             return;
                         }
                         $set('slug', Str::slug($state));
+                        $set('seo.title', $state);
                     }),
 
                 TextInput::make('slug')
