@@ -26,4 +26,9 @@ HTML;
     {
         return ['js' => [], 'css' => []];
     }
+
+    public static function getThumbnail(): ?string
+    {
+        return 'data:image/svg+xml,' . rawurlencode('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220"><rect fill="#1e1e2e" width="320" height="220"/><rect fill="#45475a" x="30" y="60" width="260" height="16" rx="6"/><rect fill="#585b70" x="50" y="88" width="220" height="10" rx="5"/><rect fill="#585b70" x="70" y="108" width="180" height="10" rx="5"/><rect fill="#5865f2" x="100" y="150" width="120" height="32" rx="16"/></svg>');
+    }
 }
