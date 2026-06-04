@@ -57,3 +57,88 @@ it('renders scheduled pages after their time', function () {
     $response->assertStatus(200);
     $response->assertSee('<h1>Live</h1>', false);
 });
+
+// ─── Standalone Builder Routes ─────────────────────────────────────────
+
+it('builder GET route renders the editor with page data', function () {
+    $page = FilaBuilderPage::create([
+        'title' => 'Builder Test',
+        'slug' => 'builder-test',
+        'status' => PageStatus::Draft,
+        'content' => [
+            'html' => '<h1>Editor Content</h1>',
+            'css' => 'h1 { color: red; }',
+            'project_data' => [],
+        ],
+    ]);
+
+    $response = $this->get(route('filabuilder.builder', ['page' => $page]));
+
+    $response->assertStatus(200);
+    $response->assertSee('Builder Test');
+    $response->assertSee('builder/');
+    $response->assertSee(route('filabuilder.blocks'));
+});
+
+it('builder POST saves metadata, content and SEO', function () {
+    $page = FilaBuilderPage::create([
+        'title' => 'Old Title',
+        'slug' => 'old-slug',
+        'status' => PageStatus::Draft,
+        'content' => ['html' => '', 'css' => '', 'project_data' => []],
+    ]);
+
+    $response = $this->postJson(route('filabuilder.builder.save', ['page' => $page]), [
+        'title' => 'New Title',
+        'slug' => 'new-slug',
+        'status' => 'published',
+        'published_at' => '2026-06-04 12:00:00',
+        'seo_title' => 'SEO Title',
+        'seo_description' => 'SEO Description',
+        'html' => '<h1>Built!</h1>',
+        'css' => 'h1 { color: blue; }',
+        'project_data' => ['key' => 'value'],
+    ]);
+
+    $response->assertStatus(200);
+    $response->assertJson(['success' => true]);
+
+    $page->refresh();
+
+    expect($page->title)->toBe('New Title');
+    expect($page->slug)->toBe('new-slug');
+    expect($page->status->value)->toBe('published');
+    expect($page->content)->toBe([
+        'html' => '<h1>Built!</h1>',
+        'css' => 'h1 { color: blue; }',
+        'project_data' => ['key' => 'value'],
+    ]);
+    expect($page->seo->title)->toBe('SEO Title');
+    expect($page->seo->description)->toBe('SEO Description');
+});
+
+it('builder POST validates unique slug', function () {
+    FilaBuilderPage::create([
+        'title' => 'Existing',
+        'slug' => 'taken-slug',
+        'status' => PageStatus::Draft,
+    ]);
+
+    $page = FilaBuilderPage::create([
+        'title' => 'Another',
+        'slug' => 'another-slug',
+        'status' => PageStatus::Draft,
+    ]);
+
+    $response = $this->postJson(route('filabuilder.builder.save', ['page' => $page]), [
+        'title' => 'Another',
+        'slug' => 'taken-slug',
+        'status' => 'draft',
+        'html' => '',
+        'css' => '',
+        'project_data' => [],
+    ]);
+
+    $response->assertStatus(422);
+    $response->assertJsonValidationErrors('slug');
+});

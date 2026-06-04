@@ -119,9 +119,9 @@
     <script src="https://unpkg.com/grapesjs/dist/grapes.min.js"></script>
 
     <script>
-        const saveUrl = @json($saveUrl);
-        const blocksUrl = @json($blocksUrl);
-        const initialContent = @json($page->content);
+var saveUrl = @json($saveUrl, JSON_UNESCAPED_SLASHES);
+var blocksUrl = @json($blocksUrl, JSON_UNESCAPED_SLASHES);
+var initialContent = @json($page->content);
 
         // --- Toast notification ---
         function showToast(message, type) {
