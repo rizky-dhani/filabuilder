@@ -15,7 +15,6 @@ use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Schemas\Components\Actions;
 use Filament\Schemas\Schema;
-use Filament\Support\Enums\Width;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -79,20 +78,9 @@ class FilaBuilderPageResource extends Resource
                         ->size('lg')
                         ->extraAttributes(['class' => 'w-full'])
                         ->button()
-                        ->modalWidth(Width::Full)
-                        ->modalHeading('Page Builder')
-                        ->schema([
-                            \Filabuilder\Forms\Components\GrapesJsField::make('content')
-                                ->label('')
-                                ->loadDefaultBlocks(config('filabuilder.blocks.default_blocks', true))
-                                ->minHeight('75vh'),
-                        ])
-                        ->fillForm(fn ($livewire): array => [
-                            'content' => $livewire?->record?->content ?? null,
-                        ])
-                        ->action(function (array $data, $set): void {
-                            $set('content', $data['content']);
-                        }),
+                        ->url(fn (FilaBuilderPage $record): string => route('filabuilder.builder', ['page' => $record]))
+                        ->openUrlInNewTab()
+                        ->hidden(fn (?FilaBuilderPage $record): bool => $record === null),
                 ])->columnSpanFull(),
 
                 SEO::make()
