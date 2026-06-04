@@ -83,7 +83,7 @@ class FilaBuilderPageResource extends Resource
                         ->hidden(fn (?FilaBuilderPage $record): bool => $record === null),
                 ])->columnSpanFull(),
 
-                SEO::make()
+                SEO::make(['title', 'description', 'robots'])
                     ->columnSpanFull(),
             ]);
     }
@@ -98,11 +98,6 @@ class FilaBuilderPageResource extends Resource
 
                 TextColumn::make('slug')
                     ->searchable(),
-
-                TextColumn::make('creator.name')
-                    ->label('Author')
-                    ->searchable()
-                    ->sortable(),
 
                 TextColumn::make('status')
                     ->badge()

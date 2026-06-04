@@ -50,6 +50,19 @@ class FilaBuilderPage extends Model
         });
     }
 
+    public function addSEO(): static
+    {
+        $seoData = [];
+
+        if (auth()->check()) {
+            $seoData['author'] = auth()->user()->name;
+        }
+
+        $this->seo()->create($seoData);
+
+        return $this;
+    }
+
     public function creator(): BelongsTo
     {
         return $this->belongsTo(
