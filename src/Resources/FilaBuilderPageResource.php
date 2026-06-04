@@ -99,6 +99,11 @@ class FilaBuilderPageResource extends Resource
                 TextColumn::make('slug')
                     ->searchable(),
 
+                TextColumn::make('creator.name')
+                    ->label('Author')
+                    ->searchable()
+                    ->sortable(),
+
                 TextColumn::make('status')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
