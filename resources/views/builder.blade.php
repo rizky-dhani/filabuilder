@@ -6,6 +6,7 @@
     <title>{{ $page->title }} — Page Builder</title>
     <link rel="stylesheet" href="https://unpkg.com/grapesjs/dist/css/grapes.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;family=Inter:wght@300;400;600;700&amp;family=Open+Sans:wght@300;400;600;700&amp;family=Poppins:wght@300;400;500;600;700&amp;family=Lato:wght@300;400;700&amp;family=Montserrat:wght@300;400;500;600;700&amp;family=Nunito:wght@300;400;600;700&amp;family=Source+Sans+3:wght@300;400;600;700&amp;family=Playfair+Display:wght@400;500;700&amp;family=Merriweather:wght@300;400;700&amp;family=Lora:wght@400;500;700&amp;family=PT+Serif:wght@400;700&amp;family=Oswald:wght@300;400;500;700&amp;family=JetBrains+Mono:wght@300;400;500;700&amp;family=Fira+Code:wght@300;400;500;700&amp;display=swap">
     <style>
         html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: system-ui, -apple-system, sans-serif; }
 
@@ -173,8 +174,39 @@ var initialContent = @json($page->content);
             style: initialContent?.css || '',
             projectData: initialContent?.project_data || undefined,
             canvas: {
-                styles: [],
+                styles: [
+                    'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Inter:wght@300;400;600;700&family=Open+Sans:wght@300;400;600;700&family=Poppins:wght@300;400;500;600;700&family=Lato:wght@300;400;700&family=Montserrat:wght@300;400;500;600;700&family=Nunito:wght@300;400;600;700&family=Source+Sans+3:wght@300;400;600;700&family=Playfair+Display:wght@400;500;700&family=Merriweather:wght@300;400;700&family=Lora:wght@400;500;700&family=PT+Serif:wght@400;700&family=Oswald:wght@300;400;500;700&family=JetBrains+Mono:wght@300;400;500;700&family=Fira+Code:wght@300;400;500;700&display=swap',
+                ],
             },
+        });
+
+        // --- Configure font-family with Google Fonts ---
+        editor.on('load', function () {
+            var styleMng = editor.StyleManager;
+            var fontProp = styleMng.getProperty('typography', 'font-family');
+            if (fontProp) {
+                fontProp.setOptions([
+                    { value: 'Arial, Helvetica, sans-serif', name: 'Arial' },
+                    { value: 'Georgia, serif', name: 'Georgia' },
+                    { value: 'Times New Roman, Times, serif', name: 'Times New Roman' },
+                    { value: 'Courier New, monospace', name: 'Courier New' },
+                    { value: 'Roboto, sans-serif', name: 'Roboto' },
+                    { value: 'Inter, sans-serif', name: 'Inter' },
+                    { value: 'Open Sans, sans-serif', name: 'Open Sans' },
+                    { value: 'Poppins, sans-serif', name: 'Poppins' },
+                    { value: 'Lato, sans-serif', name: 'Lato' },
+                    { value: 'Montserrat, sans-serif', name: 'Montserrat' },
+                    { value: 'Nunito, sans-serif', name: 'Nunito' },
+                    { value: 'Source Sans 3, sans-serif', name: 'Source Sans 3' },
+                    { value: 'Playfair Display, serif', name: 'Playfair Display' },
+                    { value: 'Merriweather, serif', name: 'Merriweather' },
+                    { value: 'Lora, serif', name: 'Lora' },
+                    { value: 'PT Serif, serif', name: 'PT Serif' },
+                    { value: 'Oswald, sans-serif', name: 'Oswald' },
+                    { value: 'JetBrains Mono, monospace', name: 'JetBrains Mono' },
+                    { value: 'Fira Code, monospace', name: 'Fira Code' },
+                ]);
+            }
         });
 
         // --- Load custom blocks ---
