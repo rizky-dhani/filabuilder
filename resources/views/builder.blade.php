@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://unpkg.com/grapesjs/dist/css/grapes.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;family=Inter:wght@300;400;600;700&amp;family=Open+Sans:wght@300;400;600;700&amp;family=Poppins:wght@300;400;500;600;700&amp;family=Lato:wght@300;400;700&amp;family=Montserrat:wght@300;400;500;600;700&amp;family=Nunito:wght@300;400;600;700&amp;family=Source+Sans+3:wght@300;400;600;700&amp;family=Playfair+Display:wght@400;500;700&amp;family=Merriweather:wght@300;400;700&amp;family=Lora:wght@400;500;700&amp;family=PT+Serif:wght@400;700&amp;family=Oswald:wght@300;400;500;700&amp;family=JetBrains+Mono:wght@300;400;500;700&amp;family=Fira+Code:wght@300;400;500;700&amp;display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <style>
         html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: system-ui, -apple-system, sans-serif; }
 
